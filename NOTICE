@@ -1,0 +1,6 @@
+furumiya-development
+Copyright © 2021-2022 furumiya-development
+
+このプロジェクトには、.NET Foundation and Contributorsのライブラリを呼び出すプログラムソースが含まれていますが
+オブジェクト形式ファイルはありません。組み合わせて使うfurumiya-developmentのソースのみです。  
+https://github.com/dotnet/runtimeおよびhttps://github.com/dotnet/winformsプロジェクトは、.NET Foundation and Contributorsによって開発されています。
