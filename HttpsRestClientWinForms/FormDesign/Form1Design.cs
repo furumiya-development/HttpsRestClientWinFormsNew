@@ -15,14 +15,14 @@ namespace HttpsRestClientWinForms.FormDesign
         private ComboBox cmbSslProtocol = new ComboBox();
         private TextBox textBoxReqBody = new TextBox();
         private RichTextBox richTextBox1 = new RichTextBox();
-        private Label labelNumId = new Label();
-        private TextBox textBoxShohinNum = new TextBox();
+        private Label labelUuid = new Label();
+        private TextBox textBoxShohinCode = new TextBox();
         private TextBox textBoxShohinName = new TextBox();
-        private TextBox textBoxNote = new TextBox();
-        private Button buttonQuery = new Button();
-        private Button buttonInsert = new Button();
-        private Button buttonUpdate = new Button();
-        private Button buttonDelete = new Button();
+        private TextBox textBoxRemarks = new TextBox();
+        private Button buttonRead = new Button();
+        private Button buttonAdd = new Button();
+        private Button buttonChange = new Button();
+        private Button buttonErase = new Button();
         private Label labelFoot = new Label();
 
         public Form1Design()
@@ -37,7 +37,7 @@ namespace HttpsRestClientWinForms.FormDesign
 
             LabelsSetting(@"labelUri", @"URI:", 25, 235, 50, 25);
             textBoxUri.TabIndex = 0;
-            textBoxUri.Text = @"https://localhost:7213/api/ShohinEntities";
+            textBoxUri.Text = @"https://localhost:8443/rest/read"; //@"https://localhost:7213/api/ShohinEntities";
             textBoxUri = (TextBox)ControlsSetting(textBoxUri, @"textBoxUri", 75, 235, 300, 25);
 
             LabelsSetting(@"labelHttpVer", @"HTTPバージョン：", 375, 235, 110, 25);
@@ -56,35 +56,35 @@ namespace HttpsRestClientWinForms.FormDesign
             LabelsSetting(@"label3", @"商品名:", 400, 400, 100, 25);
             LabelsSetting(@"label4", @"備考:", 400, 450, 50, 25);
 
-            labelNumId.AutoSize = false;
-            labelNumId.TextAlign = ContentAlignment.TopRight;
-            labelNumId = (Label)ControlsSetting(labelNumId, @"labelNumId", 500, 300, 250, 25);
-            textBoxShohinNum.TabIndex = 2;
-            textBoxShohinNum = (TextBox)ControlsSetting(textBoxShohinNum, @"textBoxShohinNum", 600, 350, 150, 25);
+            labelUuid.AutoSize = false;
+            labelUuid.TextAlign = ContentAlignment.TopRight;
+            labelUuid = (Label)ControlsSetting(labelUuid, @"labelUuid", 500, 300, 250, 25);
+            textBoxShohinCode.TabIndex = 2;
+            textBoxShohinCode = (TextBox)ControlsSetting(textBoxShohinCode, @"textBoxShohinCode", 600, 350, 150, 25);
             textBoxShohinName.TabIndex = 3;
             textBoxShohinName = (TextBox)ControlsSetting(textBoxShohinName, @"textBoxShohinName", 550, 400, 200, 25);
-            textBoxNote.TabIndex = 4;
-            textBoxNote = (TextBox)ControlsSetting(textBoxNote, @"textBoxNote", 450, 450, 300, 25);
+            textBoxRemarks.TabIndex = 4;
+            textBoxRemarks = (TextBox)ControlsSetting(textBoxRemarks, @"textBoxRemarks", 450, 450, 300, 25);
 
-            buttonQuery.Text = @"抽出(GET)";
-            buttonQuery.TabIndex = 5;
-            buttonQuery.UseVisualStyleBackColor = true;
-            buttonQuery = (Button)ControlsSetting(buttonQuery, @"buttonQuery", 25, 490, 150, 50);
+            buttonRead.Text = @"抽出(GET)";
+            buttonRead.TabIndex = 5;
+            buttonRead.UseVisualStyleBackColor = true;
+            buttonRead = (Button)ControlsSetting(buttonRead, @"buttonRead", 25, 490, 150, 50);
 
-            buttonInsert.Text = @"追加(POST)";
-            buttonInsert.TabIndex = 6;
-            buttonInsert.UseVisualStyleBackColor = true;
-            buttonInsert = (Button)ControlsSetting(buttonInsert, @"buttonInsert", 220, 490, 150, 50);
+            buttonAdd.Text = @"追加(POST)";
+            buttonAdd.TabIndex = 6;
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd = (Button)ControlsSetting(buttonAdd, @"buttonAdd", 220, 490, 150, 50);
 
-            buttonUpdate.Text = @"更新(PUT)";
-            buttonUpdate.TabIndex = 7;
-            buttonUpdate.UseVisualStyleBackColor = true;
-            buttonUpdate = (Button)ControlsSetting(buttonUpdate, @"buttonUpdate", 410, 490, 150, 50);
+            buttonChange.Text = @"更新(PUT)";
+            buttonChange.TabIndex = 7;
+            buttonChange.UseVisualStyleBackColor = true;
+            buttonChange = (Button)ControlsSetting(buttonChange, @"buttonChange", 410, 490, 150, 50);
 
-            buttonDelete.Text = @"削除(DELETE)";
-            buttonDelete.TabIndex = 8;
-            buttonDelete.UseVisualStyleBackColor = true;
-            buttonDelete = (Button)ControlsSetting(buttonDelete, @"buttonDelete", 600, 490, 150, 50);
+            buttonErase.Text = @"削除(DELETE)";
+            buttonErase.TabIndex = 8;
+            buttonErase.UseVisualStyleBackColor = true;
+            buttonErase = (Button)ControlsSetting(buttonErase, @"buttonErase", 600, 490, 150, 50);
 
             labelFoot.Text = @"Copyright (c)  2021-2022  furumiya-development";
             labelFoot.AutoSize = false;
@@ -95,10 +95,10 @@ namespace HttpsRestClientWinForms.FormDesign
         {
             if (dataGridView1.Rows.Count > 0)
             {
-                labelNumId.Text = dataGridView1.CurrentRow.Cells["UniqueId"].Value.ToString();
-                textBoxShohinNum.Text = dataGridView1.CurrentRow.Cells["ShohinCode"].Value.ToString();
+                labelUuid.Text = dataGridView1.CurrentRow.Cells["UniqueId"].Value.ToString();
+                textBoxShohinCode.Text = dataGridView1.CurrentRow.Cells["ShohinCode"].Value.ToString();
                 textBoxShohinName.Text = dataGridView1.CurrentRow.Cells["ShohinName"].Value.ToString();
-                textBoxNote.Text = dataGridView1.CurrentRow.Cells["Remarks"].Value.ToString();
+                textBoxRemarks.Text = dataGridView1.CurrentRow.Cells["Remarks"].Value.ToString();
             }
         }
 
@@ -125,10 +125,10 @@ namespace HttpsRestClientWinForms.FormDesign
 
         public void TextBoxClear()
         {
-            labelNumId.Text = "";
-            textBoxShohinNum.Text = "";
+            labelUuid.Text = "";
+            textBoxShohinCode.Text = "";
             textBoxShohinName.Text = "";
-            textBoxNote.Text = "";
+            textBoxRemarks.Text = "";
         }
 
         public Dictionary<string, Label> LabelDic
@@ -179,16 +179,16 @@ namespace HttpsRestClientWinForms.FormDesign
             set => richTextBox1 = value;
         }
 
-        public Label LabelNumId
+        public Label LabelUniqueId
         {
-            get => labelNumId;
-            set => labelNumId = value;
+            get => labelUuid;
+            set => labelUuid = value;
         }
 
-        public TextBox TextBoxShohinNum
+        public TextBox TextBoxShohinCode
         {
-            get => textBoxShohinNum;
-            set => textBoxShohinNum = value;
+            get => textBoxShohinCode;
+            set => textBoxShohinCode = value;
         }
 
         public TextBox TextBoxShohinName
@@ -197,34 +197,34 @@ namespace HttpsRestClientWinForms.FormDesign
             set => textBoxShohinName = value;
         }
 
-        public TextBox TextBoxNote
+        public TextBox TextBoxRemarks
         {
-            get => textBoxNote;
-            set => textBoxNote = value;
+            get => textBoxRemarks;
+            set => textBoxRemarks = value;
         }
 
-        public Button ButtonQuery
+        public Button ButtonRead
         {
-            get => buttonQuery;
-            set => buttonQuery = value;
+            get => buttonRead;
+            set => buttonRead = value;
         }
 
-        public Button ButtonInsert
+        public Button ButtonAdd
         {
-            get => buttonInsert;
-            set => buttonInsert = value;
+            get => buttonAdd;
+            set => buttonAdd = value;
         }
 
-        public Button ButtonUpdate
+        public Button ButtonChange
         {
-            get => buttonUpdate;
-            set => buttonUpdate = value;
+            get => buttonChange;
+            set => buttonChange = value;
         }
 
-        public Button ButtonDelete
+        public Button ButtonErase
         {
-            get => buttonDelete;
-            set => buttonDelete = value;
+            get => buttonErase;
+            set => buttonErase = value;
         }
 
         public Label LabelFoot

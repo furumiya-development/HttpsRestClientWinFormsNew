@@ -9,8 +9,8 @@ ___
 フレームワーク：.NET 6.0.11  
 デベロッパーパック：.NET SDK 6.0.403  
 デスクトップ：Windows Forms  
-NuGetライブラリー：Microsoft.Extensions.DependencyInjection 6.0.0  
-                Microsoft.Extensions.Http 6.0.0  
+NuGetライブラリー：Microsoft.Extensions.DependencyInjection 7.0.0  
+                Microsoft.Extensions.Http 7.0.0  
 
 ```
 

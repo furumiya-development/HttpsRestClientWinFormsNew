@@ -48,7 +48,7 @@ namespace HttpsRestClientWinForms
             fDesign.GetGridViewRowSetTextBox();
         }
 
-        private async void ButtonQuery_Click(object sender, EventArgs e)
+        private async void ButtonRead_Click(object sender, EventArgs e)
         {
             var uri = fDesign.TextBoxUri.Text;
             fDesign.BindingSource1.DataSource = await service.HttpGet(uri);
@@ -68,9 +68,9 @@ namespace HttpsRestClientWinForms
             }
         }
 
-        private async void ButtonInsert_Click(object sender, EventArgs e)
+        private async void ButtonAdd_Click(object sender, EventArgs e)
         {
-            if (PatternMatch(fDesign.TextBoxShohinNum.Text) == false)
+            if (PatternMatch(fDesign.TextBoxShohinCode.Text) == false)
             {
                 MsgDialogOK(MSG_MESSAGE_SHOHIN_NUM_NG, MSG_TITLE_SHOHIN_NUM_NG, MessageBoxIcon.Warning);
                 return;
@@ -89,21 +89,21 @@ namespace HttpsRestClientWinForms
                 fDesign.RichTextBox1.AppendText($"データを1件追加しました。{Environment.NewLine}");
         }
 
-        private async void ButtonUpdate_Click(object sender, EventArgs e)
+        private async void ButtonChange_Click(object sender, EventArgs e)
         {
-            if (fDesign.DataGridView1.Rows.Count <= 0 || fDesign.LabelNumId.Text == "")
+            if (fDesign.DataGridView1.Rows.Count <= 0 || fDesign.LabelUniqueId.Text == "")
             {
                 MsgDialogOK(MSG_MESSAGE_GYO_NG, MSG_TITLE_GYO_NG, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (PatternMatch(fDesign.TextBoxShohinNum.Text) == false)
+            if (PatternMatch(fDesign.TextBoxShohinCode.Text) == false)
             {
                 MsgDialogOK(MSG_MESSAGE_SHOHIN_NUM_NG, MSG_TITLE_SHOHIN_NUM_NG, MessageBoxIcon.Warning);
                 return;
             }
 
-            var uri = $@"{fDesign.TextBoxUri.Text}/{fDesign.LabelNumId.Text}";
+            var uri = $@"{fDesign.TextBoxUri.Text}/{fDesign.LabelUniqueId.Text}";
             string JsonStr = CreateJsonStr();
             await service.HttpPut(uri, JsonStr);
             if (AuthCheck(false) == true)
@@ -116,21 +116,21 @@ namespace HttpsRestClientWinForms
                 fDesign.RichTextBox1.AppendText($"選択されたレコードを1件更新しました。{Environment.NewLine}");
         }
 
-        private async void ButtonDelete_Click(object sender, EventArgs e)
+        private async void ButtonErase_Click(object sender, EventArgs e)
         {
-            if (fDesign.DataGridView1.Rows.Count <= 0 || fDesign.LabelNumId.Text == "")
+            if (fDesign.DataGridView1.Rows.Count <= 0 || fDesign.LabelUniqueId.Text == "")
             {
                 MessageBox.Show("削除する商品行が選択がされていません", "商品IDなし", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (PatternMatch(fDesign.TextBoxShohinNum.Text) == false)
+            if (PatternMatch(fDesign.TextBoxShohinCode.Text) == false)
             {
                 MsgDialogOK(MSG_MESSAGE_SHOHIN_NUM_NG, MSG_TITLE_SHOHIN_NUM_NG, MessageBoxIcon.Warning);
                 return;
             }
 
-            var uri = $@"{fDesign.TextBoxUri.Text}/{fDesign.LabelNumId.Text}";
+            var uri = $@"{fDesign.TextBoxUri.Text}/{fDesign.LabelUniqueId.Text}";
             await service.HttpDelete(uri, @"dummy text");
             if (AuthCheck(false) == true)
             {
@@ -183,8 +183,8 @@ namespace HttpsRestClientWinForms
 
         private string CreateJsonStr()
         {
-            string Str = "{ \"shohinCode\":" + fDesign.TextBoxShohinNum.Text;
-            Str += ", \"shohinName\": \"" + fDesign.TextBoxShohinName.Text + "\", \"note\": \"" + fDesign.TextBoxNote.Text + "\" }";
+            string Str = "{ \"shohinCode\":" + fDesign.TextBoxShohinCode.Text;
+            Str += ", \"shohinName\": \"" + fDesign.TextBoxShohinName.Text + "\", \"note\": \"" + fDesign.TextBoxRemarks.Text + "\" }";
 
             return Str;
         }
@@ -211,19 +211,19 @@ namespace HttpsRestClientWinForms
             Controls.Add(fDesign.TextBoxReqBody);
             Controls.Add(fDesign.RichTextBox1);
 
-            Controls.Add(fDesign.LabelNumId);
-            Controls.Add(fDesign.TextBoxShohinNum);
+            Controls.Add(fDesign.LabelUniqueId);
+            Controls.Add(fDesign.TextBoxShohinCode);
             Controls.Add(fDesign.TextBoxShohinName);
-            Controls.Add(fDesign.TextBoxNote);
+            Controls.Add(fDesign.TextBoxRemarks);
 
-            Controls.Add(fDesign.ButtonQuery);
-            fDesign.ButtonQuery.Click += new EventHandler(ButtonQuery_Click!);
-            Controls.Add(fDesign.ButtonInsert);
-            fDesign.ButtonInsert.Click += new EventHandler(ButtonInsert_Click!);
-            Controls.Add(fDesign.ButtonUpdate);
-            fDesign.ButtonUpdate.Click += new EventHandler(ButtonUpdate_Click!);
-            Controls.Add(fDesign.ButtonDelete);
-            fDesign.ButtonDelete.Click += new EventHandler(ButtonDelete_Click!);
+            Controls.Add(fDesign.ButtonRead);
+            fDesign.ButtonRead.Click += new EventHandler(ButtonRead_Click!);
+            Controls.Add(fDesign.ButtonAdd);
+            fDesign.ButtonAdd.Click += new EventHandler(ButtonAdd_Click!);
+            Controls.Add(fDesign.ButtonChange);
+            fDesign.ButtonChange.Click += new EventHandler(ButtonChange_Click!);
+            Controls.Add(fDesign.ButtonErase);
+            fDesign.ButtonErase.Click += new EventHandler(ButtonErase_Click!);
 
             Controls.Add(fDesign.LabelFoot);
 
